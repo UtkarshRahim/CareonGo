@@ -94,8 +94,8 @@
         </select>
                     <br><br>     
                     <label style="font-size: 18px;"> Amount</label> <br>
-                  <input type="number" name="unit" id="unit" style="width:300px;"><br>
-    <input type="submit" value="Submit">
+                    <input type="number" name="unit" id="unit" style="width:300px;"><br><br>
+    <input type="submit" value="Submit" style="color: #000;border: 1px #ddd solid;">
         </form>
     
     </center>
@@ -103,7 +103,7 @@
                request.setAttribute("unit",unit);
       rs.close();
       conn.close();
-      onClick.confirm("Are you sure?");
+      
     %> 
   </body>
 

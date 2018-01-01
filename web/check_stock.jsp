@@ -31,11 +31,11 @@
               while (rs.next()) {
                   %>
            <tr>
-               <td><%= rs.getInt("S.No") %></td>
-           <td><%= rs.getString("Name") %></td>
-           <td><%= rs.getFloat("Price/tablet") %></td>
-           <td><%= rs.getInt("In stock") %></td>
-             </tr>
+               <td style="font-weight: bold;"><%= rs.getInt("S.No") %></td>
+           <td style="font-weight: bold;"><%= rs.getString("Name") %></td>
+           <td style="font-weight: bold;"><%= rs.getFloat("Price/tablet") %></td>
+           <td style="font-weight: bold;"><%= rs.getInt("Amount") %></td>
+            </tr>
         <% }
     rs.close();
     conn.close();
