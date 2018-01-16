@@ -19,18 +19,16 @@ public class tracking extends HttpServlet {
             throws ServletException, IOException {
          PrintWriter out = response.getWriter() ;
 
-            String cid = request.getParameter("cid");
+            String cid = request.getParameter("oid");
             out.println("<html>\n" +
-"	<head>\n" +
-"		<title>Careongo Pharmacy </title>\n" +
+"	<head> 	<title>Careongo Pharmacy </title>\n" +
 "		<link href='http://fonts.googleapis.com/css?family=Graduate' rel='stylesheet' type='text/css'>\n" +
-"		<![if !IE]>\n" +
 "		<link href=\"style.css\" rel='stylesheet' type='text/css'>\n" +
-"		<![endif]>\n" +
+
 "	</head>\n" +
 "<body><form action=\"alert\""
              + "<br>" );
-             out.println("<table border=\"1\">"  +
+             out.println("<br><br><table border=\"1\">"  +
 "<caption>Medicines</caption>"  +
 "<tr>"  +
 " <th>NAME"  +
@@ -57,7 +55,7 @@ public class tracking extends HttpServlet {
   while(rs0.next())
   {
       
-      String pid = String.valueOf(rs0.getInt("PRODUCT_ID"));
+      int pid = rs0.getInt("PRODUCT_ID");
       
               ResultSet rs = stmt.executeQuery("Select PRODUCT_NAME from products where PRODUCT_ID=\""+pid+"\"");
               while(rs.next())
@@ -91,7 +89,8 @@ public class tracking extends HttpServlet {
   }
              
              
-             
+       out.println("<br><br><a href='index.html' align =\"right\">GO BACK </a> </body>\n" +
+"</html>");      
              
              
              

@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Customer info</title>
+    <link href='http://fonts.googleapis.com/css?family=Graduate' rel='stylesheet' type='text/css'>    
+    <link href="style.css" rel='stylesheet' type='text/css'>
+    </head>
+    <style>
+     body  {
+    background-image: url("bg.jpg");
+    background-color: #cccccc;
+    
+     background-repeat: no-repeat;
+}</style>
+    
+    <script>function getout(){
+        session.setAttribute("cid",cid);
+        response.sendRedirect("tracking");
+        
+    }</script>
+    <body><center>
+        <h1> Welcome </h1>
+    </center>
+        <br>
+        <font size ="16 ">
+        <p >What would you like to do ?</p></font>
+        
+        <font size =" 20 ">
+        <a href ="custcat">Order Products</a><br>
+        <a href ="custrack">Track order</a>
+        </font>
+    </body>
+</html>
+        
+        
+        
+        
+        
