@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<log>
+<record>
+  <date>2018-01-19T17:56:38</date>
+  <logger>oracle.dbtools.migration.workbench.core.MigrationLogResourceBundle</logger>
+  <level>INFO</level>
+  <class>oracle.dbtools.migration.convert.ConverterWorker</class>
+  <message>Catalog MySQL, Schema pro coalesced to single schema pro</message>
+  <key>Convert.COALESCED</key>
+  <catalog>oracle.dbtools.migration.workbench.core.MigrationLogResourceBundle</catalog>
+  <param>MySQL</param>
+  <param>pro</param>
+  <param>pro</param>
+  <param>oracle.dbtools.migration.workbench.core.logging.LogInfo@6cf44f0b</param>
+
+</record>
+<record>
+  <date>2018-01-19T17:56:39</date>
+  <logger>oracle.dbtools.migration.workbench.core.MigrationLogResourceBundle</logger>
+  <level>INFO</level>
+  <class>oracle.dbtools.migration.convert.ConvertUtils</class>
+  <message>Index 'BATCH_NUMBER' on table 'inventory' has been dropped as it is a duplicate of a constraint</message>
+  <key>Convert.DROPPEDCONSTRAINTINDEX</key>
+  <catalog>oracle.dbtools.migration.workbench.core.MigrationLogResourceBundle</catalog>
+  <param>BATCH_NUMBER</param>
+  <param>inventory</param>
+  <param>oracle.dbtools.migration.workbench.core.logging.LogInfo@40fc0562</param>
+
+</record>
+<record>
+  <date>2018-01-19T17:56:42</date>
+  <logger>oracle.dbtools.migration.workbench.core.MigrationLogResourceBundle</logger>
+  <level>INFO</level>
+  <class>oracle.dbtools.migration.core.util.MultiLevelLogManager</class>
+  <message>Following objects have had name changes applied</message>
+  <key>Convert.IDENTIFIER_TRANSFORMED_HEADING</key>
+  <catalog>oracle.dbtools.migration.workbench.core.MigrationLogResourceBundle</catalog>
+  <param>oracle.dbtools.migration.workbench.core.logging.LogInfo@163105d9</param>
+
+<record>
+  <date>2018-01-19T17:56:42</date>
+  <logger>oracle.dbtools.migration.workbench.core.MigrationLogResourceBundle</logger>
+  <level>INFO</level>
+  <class>oracle.dbtools.migration.core.util.MultiLevelLogManager</class>
+  <message>User 'root' Changed to 'ROOT_5' (Invalid characters, reserved word or clash)</message>
+  <param>ROOT_5, MD_USERS, 24851Convert</param>
+
+</record>
+<record>
+  <date>2018-01-19T17:56:42</date>
+  <logger>oracle.dbtools.migration.workbench.core.MigrationLogResourceBundle</logger>
+  <level>INFO</level>
+  <class>oracle.dbtools.migration.core.util.MultiLevelLogManager</class>
+  <message>Constraint 'PRIMARY' Changed to 'PRIMARY_1' (Invalid characters, reserved word or clash)</message>
+  <param>PRIMARY_1, MD_CONSTRAINTS, 25201Convert</param>
+
+</record>
+<record>
+  <date>2018-01-19T17:56:42</date>
+  <logger>oracle.dbtools.migration.workbench.core.MigrationLogResourceBundle</logger>
+  <level>INFO</level>
+  <class>oracle.dbtools.migration.core.util.MultiLevelLogManager</class>
+  <message>Constraint 'PRIMARY' Changed to 'PRIMARY_2' (Invalid characters, reserved word or clash)</message>
+  <param>PRIMARY_2, MD_CONSTRAINTS, 25401Convert</param>
+
+</record>
+<record>
+  <date>2018-01-19T17:56:42</date>
+  <logger>oracle.dbtools.migration.workbench.core.MigrationLogResourceBundle</logger>
+  <level>INFO</level>
+  <class>oracle.dbtools.migration.core.util.MultiLevelLogManager</class>
+  <message>Constraint 'PRIMARY' Changed to 'PRIMARY_3' (Invalid characters, reserved word or clash)</message>
+  <param>PRIMARY_3, MD_CONSTRAINTS, 25601Convert</param>
+
+</record>
+<record>
+  <date>2018-01-19T17:56:42</date>
+  <logger>oracle.dbtools.migration.workbench.core.MigrationLogResourceBundle</logger>
+  <level>INFO</level>
+  <class>oracle.dbtools.migration.core.util.MultiLevelLogManager</class>
+  <message>Constraint 'PRIMARY' Changed to 'PRIMARY_4' (Invalid characters, reserved word or clash)</message>
+  <param>PRIMARY_4, MD_CONSTRAINTS, 25801Convert</param>
+
+</record>
+<record>
+  <date>2018-01-19T17:56:42</date>
+  <logger>oracle.dbtools.migration.workbench.core.MigrationLogResourceBundle</logger>
+  <level>INFO</level>
+  <class>oracle.dbtools.migration.core.util.MultiLevelLogManager</class>
+  <message>Constraint 'PRIMARY' Changed to 'PRIMARY_5' (Invalid characters, reserved word or clash)</message>
+  <param>PRIMARY_5, MD_CONSTRAINTS, 26001Convert</param>
+
+</record>
+</record>
+<record>
+  <date>2018-01-19T17:56:44</date>
+  <logger>oracle.dbtools.migration.workbench.core.MigrationLogResourceBundle</logger>
+  <level>WARNING</level>
+  <class>oracle.dbtools.migration.convert.ConverterWorker</class>
+  <message>Default Values Transformed: The following column default values have been transformed during conversion</message>
+  <key>Convert.DEFAULT_LOG_HEADER</key>
+  <catalog>oracle.dbtools.migration.workbench.core.MigrationLogResourceBundle</catalog>
+  <param>oracle.dbtools.migration.workbench.core.logging.LogInfo@6cf44f0b</param>
+
+<record>
+  <date>2018-01-19T17:56:44</date>
+  <level>WARNING</level>
+  <class>oracle.dbtools.migration.convert.ConverterWorker</class>
+  <message>Default value CURRENT_TIMESTAMP has been replaced with SYSDATE</message>
+  <param>oracle.dbtools.migration.workbench.core.logging.LogInfo@34edec1</param>
+
+<record>
+  <date>2018-01-19T17:56:44</date>
+  <level>INFO</level>
+  <class>oracle.dbtools.migration.convert.ConverterWorker</class>
+  <message>pro.orders.TIME</message>
+  <param>orders, MD_TABLES, 22501Convert</param>
+
+</record>
+</record>
+</record>
+<record>
+  <date>2018-01-19T17:56:45</date>
+  <logger>oracle.dbtools.migration.workbench.core.MigrationLogResourceBundle</logger>
+  <level>INFO</level>
+  <class>oracle.dbtools.migration.workbench.core.ui.FullMigrateTask</class>
+  <message>Convert completed in 0 seconds</message>
+  <param>oracle.dbtools.migration.workbench.core.logging.LogInfo@6cf44f0b</param>
+
+<record>
+  <date>2018-01-19T17:56:44</date>
+  <level>WARNING</level>
+  <class>oracle.dbtools.migration.convert.ConverterWorker</class>
+  <message>Default value CURRENT_TIMESTAMP has been replaced with SYSDATE</message>
+  <param>oracle.dbtools.migration.workbench.core.logging.LogInfo@34edec1</param>
+
+<record>
+  <date>2018-01-19T17:56:44</date>
+  <level>INFO</level>
+  <class>oracle.dbtools.migration.convert.ConverterWorker</class>
+  <message>pro.orders.TIME</message>
+  <param>orders, MD_TABLES, 22501Convert</param>
+
+</record>
+</record>
+</record>

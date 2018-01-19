@@ -1,0 +1,570 @@
+SQL> SET VERIFY ON
+SQL> SET FEEDBACK OFF
+SQL> SET DEFINE ON
+SQL> CLEAR SCREEN
+SQL> set serveroutput on
+SQL> 
+SQL> COLUMN date_time NEW_VAL filename noprint;
+SQL> SELECT to_char(systimestamp,'yyyy-mm-dd_hh24-mi-ssxff') date_time FROM DUAL;
+
+
+
+SQL> spool "Testingconnection_&filename..log"
+SQL> 
+SQL> -- Password file execution
+SQL> -- @passworddefinition.sql
+SQL> 
+SQL> PROMPT Dropping Role ROLE_Testingconnection ...
+Dropping Role ROLE_Testingconnection ...
+SQL> DROP ROLE ROLE_Testingconnection ;
+SQL> PROMPT Creating Role ROLE_Testingconnection ...
+Creating Role ROLE_Testingconnection ...
+SQL> CREATE ROLE ROLE_Testingconnection ;
+SQL> 
+SQL> -- PROMPT Drop pro user
+SQL> -- drop user pro cascade;
+SQL> 
+SQL> PROMPT Create user pro
+Create user pro
+SQL> CREATE USER pro identified by &&pro_password DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP;
+old:CREATE USER pro identified by &&pro_password DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP
+new:CREATE USER pro identified by pro DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP
+SQL> GRANT CREATE SESSION, RESOURCE, CREATE VIEW, CREATE MATERIALIZED VIEW, CREATE SYNONYM TO pro;
+SQL> 
+SQL> -- PROMPT Drop Emulation user
+SQL> -- drop user Emulation cascade;
+SQL> 
+SQL> PROMPT Create user Emulation
+Create user Emulation
+SQL> CREATE USER Emulation identified by &&Emulation_password DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP;
+old:CREATE USER Emulation identified by &&Emulation_password DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP
+new:CREATE USER Emulation identified by Emulation DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP
+SQL> GRANT CREATE SESSION, RESOURCE, CREATE VIEW, CREATE MATERIALIZED VIEW, CREATE SYNONYM TO Emulation;
+SQL> 
+SQL> set define on
+SQL> prompt connecting to Emulation
+connecting to Emulation
+SQL> connect Emulation/&&Emulation_password;
+SQL> set define off
+SQL> 
+SQL> set define on
+SQL> prompt connecting to pro
+connecting to pro
+SQL> connect pro/&&pro_password;
+SQL> set define off
+SQL> 
+SQL> -- DROP SEQUENCE customers_CUSTOMER_ID_SEQ;
+SQL> 
+SQL> 
+SQL> PROMPT Creating Sequence customers_CUSTOMER_ID_SEQ ...
+Creating Sequence customers_CUSTOMER_ID_SEQ ...
+SQL> CREATE SEQUENCE  customers_CUSTOMER_ID_SEQ  
+  2    MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE ;
+SP2-0640: Not connected
+SQL> 
+SQL> -- DROP SEQUENCE inventory_INVENTORY_ID_SEQ;
+SQL> 
+SQL> 
+SQL> PROMPT Creating Sequence inventory_INVENTORY_ID_SEQ ...
+Creating Sequence inventory_INVENTORY_ID_SEQ ...
+SQL> CREATE SEQUENCE  inventory_INVENTORY_ID_SEQ  
+  2    MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE ;
+SP2-0640: Not connected
+SQL> 
+SQL> -- DROP SEQUENCE order_det_ORDER_DET_ID_SEQ;
+SQL> 
+SQL> 
+SQL> PROMPT Creating Sequence order_det_ORDER_DET_ID_SEQ ...
+Creating Sequence order_det_ORDER_DET_ID_SEQ ...
+SQL> CREATE SEQUENCE  order_det_ORDER_DET_ID_SEQ  
+  2    MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE ;
+SP2-0640: Not connected
+SQL> 
+SQL> -- DROP SEQUENCE orders_ORDER_ID_SEQ;
+SQL> 
+SQL> 
+SQL> PROMPT Creating Sequence orders_ORDER_ID_SEQ ...
+Creating Sequence orders_ORDER_ID_SEQ ...
+SQL> CREATE SEQUENCE  orders_ORDER_ID_SEQ  
+  2    MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE ;
+SP2-0640: Not connected
+SQL> 
+SQL> -- DROP SEQUENCE products_PRODUCT_ID_SEQ;
+SQL> 
+SQL> 
+SQL> PROMPT Creating Sequence products_PRODUCT_ID_SEQ ...
+Creating Sequence products_PRODUCT_ID_SEQ ...
+SQL> CREATE SEQUENCE  products_PRODUCT_ID_SEQ  
+  2    MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE ;
+SP2-0640: Not connected
+SQL> 
+SQL> -- DROP SEQUENCE suppliers_SUPPLIER_ID_SEQ;
+SQL> 
+SQL> 
+SQL> PROMPT Creating Sequence suppliers_SUPPLIER_ID_SEQ ...
+Creating Sequence suppliers_SUPPLIER_ID_SEQ ...
+SQL> CREATE SEQUENCE  suppliers_SUPPLIER_ID_SEQ  
+  2    MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE ;
+SP2-0640: Not connected
+SQL> 
+SQL> -- DROP TABLE customers CASCADE CONSTRAINTS;
+SQL> 
+SQL> 
+SQL> PROMPT Creating Table customers ...
+Creating Table customers ...
+SQL> CREATE TABLE customers (
+  2    CUSTOMER_ID NUMBER(10,0) NOT NULL,
+  3    CUSTOMER_NAME VARCHAR2(20 CHAR) NOT NULL,
+  4    EMAIL_ADDRESS VARCHAR2(60 CHAR) NOT NULL,
+  5    PHONE_NUMBER VARCHAR2(10 CHAR) NOT NULL,
+  6    ADDRESS VARCHAR2(60 CHAR),
+  7    Username VARCHAR2(20 CHAR),
+  8    PASSWORD VARCHAR2(20 CHAR)
+  9  );
+SP2-0640: Not connected
+SQL> 
+SQL> 
+SQL> PROMPT Creating Primary Key Constraint PRIMARY on table customers ... 
+Creating Primary Key Constraint PRIMARY on table customers ...
+SQL> ALTER TABLE customers
+  2  ADD CONSTRAINT PRIMARY PRIMARY KEY
+  3  (
+  4    CUSTOMER_ID
+  5  )
+  6  ENABLE
+  7  ;
+SP2-0640: Not connected
+SQL> 
+SQL> GRANT ALL ON customers TO ROLE_Testingconnection;
+SP2-0640: Not connected
+SQL> -- DROP TABLE inventory CASCADE CONSTRAINTS;
+SQL> 
+SQL> 
+SQL> PROMPT Creating Table inventory ...
+Creating Table inventory ...
+SQL> CREATE TABLE inventory (
+  2    INVENTORY_ID NUMBER(10,0) NOT NULL,
+  3    BATCH_NUMBER VARCHAR2(10 CHAR) NOT NULL,
+  4    SUPPLIER_ID NUMBER(10,0) NOT NULL,
+  5    PRODUCT_ID NUMBER(10,0) NOT NULL,
+  6    MFG_DATE DATE NOT NULL,
+  7    EXP_DATE DATE NOT NULL,
+  8    QUANTITY NUMBER(10,0) NOT NULL,
+  9    UNIT_PURCHASE_PRICE FLOAT NOT NULL,
+ 10    UNIT_SELL_PRICE FLOAT NOT NULL,
+ 11    TYPE VARCHAR2(20 CHAR)
+ 12  );
+SP2-0640: Not connected
+SQL> 
+SQL> 
+SQL> PROMPT Creating Primary Key Constraint PRIMARY_1 on table inventory ... 
+Creating Primary Key Constraint PRIMARY_1 on table inventory ...
+SQL> ALTER TABLE inventory
+  2  ADD CONSTRAINT PRIMARY_1 PRIMARY KEY
+  3  (
+  4    INVENTORY_ID
+  5  )
+  6  ENABLE
+  7  ;
+SP2-0640: Not connected
+SQL> PROMPT Creating Unique Constraint BATCH_NUMBER on table inventory
+Creating Unique Constraint BATCH_NUMBER on table inventory
+SQL> ALTER TABLE inventory
+  2  ADD CONSTRAINT BATCH_NUMBER UNIQUE (
+  3    BATCH_NUMBER
+  4  )
+  5  ENABLE
+  6  ;
+SP2-0640: Not connected
+SQL> 
+SQL> GRANT ALL ON inventory TO ROLE_Testingconnection;
+SP2-0640: Not connected
+SQL> -- DROP TABLE order_det CASCADE CONSTRAINTS;
+SQL> 
+SQL> 
+SQL> PROMPT Creating Table order_det ...
+Creating Table order_det ...
+SQL> CREATE TABLE order_det (
+  2    ORDER_DET_ID NUMBER(10,0) NOT NULL,
+  3    ORDER_ID NUMBER(10,0) NOT NULL,
+  4    PRODUCT_ID NUMBER(10,0) NOT NULL,
+  5    QUANTITY NUMBER(10,0) NOT NULL,
+  6    Batch_no VARCHAR2(10 CHAR)
+  7  );
+SP2-0640: Not connected
+SQL> 
+SQL> 
+SQL> PROMPT Creating Primary Key Constraint PRIMARY_5 on table order_det ... 
+Creating Primary Key Constraint PRIMARY_5 on table order_det ...
+SQL> ALTER TABLE order_det
+  2  ADD CONSTRAINT PRIMARY_5 PRIMARY KEY
+  3  (
+  4    ORDER_DET_ID
+  5  )
+  6  ENABLE
+  7  ;
+SP2-0640: Not connected
+SQL> 
+SQL> GRANT ALL ON order_det TO ROLE_Testingconnection;
+SP2-0640: Not connected
+SQL> -- DROP TABLE orders CASCADE CONSTRAINTS;
+SQL> 
+SQL> 
+SQL> PROMPT Creating Table orders ...
+Creating Table orders ...
+SQL> CREATE TABLE orders (
+  2    ORDER_ID NUMBER(10,0) NOT NULL,
+  3    PRICE FLOAT,
+  4    TIME DATE,
+  5    STATUS VARCHAR2(20 CHAR),
+  6    CUSTOMER_ID NUMBER(10,0)
+  7  );
+SP2-0640: Not connected
+SQL> 
+SQL> 
+SQL> ALTER TABLE orders MODIFY (TIME DEFAULT SYSDATE);
+SP2-0640: Not connected
+SQL> PROMPT Creating Primary Key Constraint PRIMARY_3 on table orders ... 
+Creating Primary Key Constraint PRIMARY_3 on table orders ...
+SQL> ALTER TABLE orders
+  2  ADD CONSTRAINT PRIMARY_3 PRIMARY KEY
+  3  (
+  4    ORDER_ID
+  5  )
+  6  ENABLE
+  7  ;
+SP2-0640: Not connected
+SQL> 
+SQL> GRANT ALL ON orders TO ROLE_Testingconnection;
+SP2-0640: Not connected
+SQL> -- DROP TABLE products CASCADE CONSTRAINTS;
+SQL> 
+SQL> 
+SQL> PROMPT Creating Table products ...
+Creating Table products ...
+SQL> CREATE TABLE products (
+  2    PRODUCT_ID NUMBER(10,0) NOT NULL,
+  3    PRODUCT_NAME VARCHAR2(30 CHAR) NOT NULL,
+  4    Description VARCHAR2(100 CHAR)
+  5  );
+SP2-0640: Not connected
+SQL> 
+SQL> 
+SQL> PROMPT Creating Primary Key Constraint PRIMARY_4 on table products ... 
+Creating Primary Key Constraint PRIMARY_4 on table products ...
+SQL> ALTER TABLE products
+  2  ADD CONSTRAINT PRIMARY_4 PRIMARY KEY
+  3  (
+  4    PRODUCT_ID
+  5  )
+  6  ENABLE
+  7  ;
+SP2-0640: Not connected
+SQL> 
+SQL> GRANT ALL ON products TO ROLE_Testingconnection;
+SP2-0640: Not connected
+SQL> -- DROP TABLE suppliers CASCADE CONSTRAINTS;
+SQL> 
+SQL> 
+SQL> PROMPT Creating Table suppliers ...
+Creating Table suppliers ...
+SQL> CREATE TABLE suppliers (
+  2    SUPPLIER_ID NUMBER(10,0) NOT NULL,
+  3    SUPPLIER_NAME VARCHAR2(20 CHAR) NOT NULL,
+  4    EMAIL_ADDRESS VARCHAR2(20 CHAR) NOT NULL,
+  5    PHONE_NUMBER VARCHAR2(10 CHAR) NOT NULL,
+  6    Address VARCHAR2(30 CHAR)
+  7  );
+SP2-0640: Not connected
+SQL> 
+SQL> 
+SQL> PROMPT Creating Primary Key Constraint PRIMARY_2 on table suppliers ... 
+Creating Primary Key Constraint PRIMARY_2 on table suppliers ...
+SQL> ALTER TABLE suppliers
+  2  ADD CONSTRAINT PRIMARY_2 PRIMARY KEY
+  3  (
+  4    SUPPLIER_ID
+  5  )
+  6  ENABLE
+  7  ;
+SP2-0640: Not connected
+SQL> 
+SQL> GRANT ALL ON suppliers TO ROLE_Testingconnection;
+SP2-0640: Not connected
+SQL> PROMPT Creating Index INVENTORY_fk0 on inventory ...
+Creating Index INVENTORY_fk0 on inventory ...
+SQL> CREATE INDEX INVENTORY_fk0 ON inventory
+  2  (
+  3    SUPPLIER_ID
+  4  ) 
+  5  ;
+SP2-0640: Not connected
+SQL> PROMPT Creating Index INVENTORY_fk1 on inventory ...
+Creating Index INVENTORY_fk1 on inventory ...
+SQL> CREATE INDEX INVENTORY_fk1 ON inventory
+  2  (
+  3    PRODUCT_ID
+  4  ) 
+  5  ;
+SP2-0640: Not connected
+SQL> PROMPT Creating Index ORDER_DET_fk0 on order_det ...
+Creating Index ORDER_DET_fk0 on order_det ...
+SQL> CREATE INDEX ORDER_DET_fk0 ON order_det
+  2  (
+  3    PRODUCT_ID
+  4  ) 
+  5  ;
+SP2-0640: Not connected
+SQL> PROMPT Creating Index ORDER_DET_fk1 on order_det ...
+Creating Index ORDER_DET_fk1 on order_det ...
+SQL> CREATE INDEX ORDER_DET_fk1 ON order_det
+  2  (
+  3    ORDER_ID
+  4  ) 
+  5  ;
+SP2-0640: Not connected
+SQL> set define on
+SQL> prompt connecting to pro
+connecting to pro
+SQL> connect pro/&&pro_password;
+SQL> set define off
+SQL> 
+SQL> PROMPT Creating Foreign Key Constraint INVENTORY_fk0 on table suppliers...
+Creating Foreign Key Constraint INVENTORY_fk0 on table suppliers...
+SQL> ALTER TABLE inventory
+  2  ADD CONSTRAINT INVENTORY_fk0 FOREIGN KEY
+  3  (
+  4    SUPPLIER_ID
+  5  )
+  6  REFERENCES suppliers
+  7  (
+  8    SUPPLIER_ID
+  9  )
+ 10  ENABLE
+ 11  ;
+SP2-0640: Not connected
+SQL> 
+SQL> PROMPT Creating Foreign Key Constraint INVENTORY_fk1 on table products...
+Creating Foreign Key Constraint INVENTORY_fk1 on table products...
+SQL> ALTER TABLE inventory
+  2  ADD CONSTRAINT INVENTORY_fk1 FOREIGN KEY
+  3  (
+  4    PRODUCT_ID
+  5  )
+  6  REFERENCES products
+  7  (
+  8    PRODUCT_ID
+  9  )
+ 10  ENABLE
+ 11  ;
+SP2-0640: Not connected
+SQL> 
+SQL> PROMPT Creating Foreign Key Constraint ORDER_DET_fk0 on table products...
+Creating Foreign Key Constraint ORDER_DET_fk0 on table products...
+SQL> ALTER TABLE order_det
+  2  ADD CONSTRAINT ORDER_DET_fk0 FOREIGN KEY
+  3  (
+  4    PRODUCT_ID
+  5  )
+  6  REFERENCES products
+  7  (
+  8    PRODUCT_ID
+  9  )
+ 10  ENABLE
+ 11  ;
+SP2-0640: Not connected
+SQL> 
+SQL> PROMPT Creating Foreign Key Constraint ORDER_DET_fk1 on table orders...
+Creating Foreign Key Constraint ORDER_DET_fk1 on table orders...
+SQL> ALTER TABLE order_det
+  2  ADD CONSTRAINT ORDER_DET_fk1 FOREIGN KEY
+  3  (
+  4    ORDER_ID
+  5  )
+  6  REFERENCES orders
+  7  (
+  8    ORDER_ID
+  9  )
+ 10  ENABLE
+ 11  ;
+SP2-0640: Not connected
+SQL> 
+SQL> CREATE OR REPLACE TRIGGER customers_CUSTOMER_ID_TRG BEFORE INSERT ON customers
+  2  FOR EACH ROW
+  3  DECLARE 
+  4  v_newVal NUMBER(12) := 0;
+  5  v_incval NUMBER(12) := 0;
+  6  BEGIN
+  7    IF INSERTING AND :new.CUSTOMER_ID IS NULL THEN
+  8      SELECT  customers_CUSTOMER_ID_SEQ.NEXTVAL INTO v_newVal FROM DUAL;
+  9      -- If this is the first time this table have been inserted into (sequence == 1)
+ 10      IF v_newVal = 1 THEN 
+ 11        --get the max indentity value from the table
+ 12        SELECT NVL(max(CUSTOMER_ID),0) INTO v_newVal FROM customers;
+ 13        v_newVal := v_newVal + 1;
+ 14        --set the sequence to that value
+ 15        LOOP
+ 16             EXIT WHEN v_incval>=v_newVal;
+ 17             SELECT customers_CUSTOMER_ID_SEQ.nextval INTO v_incval FROM dual;
+ 18        END LOOP;
+ 19      END IF;
+ 20      --used to emulate LAST_INSERT_ID()
+ 21      --mysql_utilities.identity := v_newVal; 
+ 22     -- assign the value from the sequence to emulate the identity column
+ 23     :new.CUSTOMER_ID := v_newVal;
+ 24    END IF;
+ 25  END;
+ 26  
+ 27  /
+SP2-0640: Not connected
+SQL> 
+SQL> CREATE OR REPLACE TRIGGER inventory_INVENTORY_ID_TRG BEFORE INSERT ON inventory
+  2  FOR EACH ROW
+  3  DECLARE 
+  4  v_newVal NUMBER(12) := 0;
+  5  v_incval NUMBER(12) := 0;
+  6  BEGIN
+  7    IF INSERTING AND :new.INVENTORY_ID IS NULL THEN
+  8      SELECT  inventory_INVENTORY_ID_SEQ.NEXTVAL INTO v_newVal FROM DUAL;
+  9      -- If this is the first time this table have been inserted into (sequence == 1)
+ 10      IF v_newVal = 1 THEN 
+ 11        --get the max indentity value from the table
+ 12        SELECT NVL(max(INVENTORY_ID),0) INTO v_newVal FROM inventory;
+ 13        v_newVal := v_newVal + 1;
+ 14        --set the sequence to that value
+ 15        LOOP
+ 16             EXIT WHEN v_incval>=v_newVal;
+ 17             SELECT inventory_INVENTORY_ID_SEQ.nextval INTO v_incval FROM dual;
+ 18        END LOOP;
+ 19      END IF;
+ 20      --used to emulate LAST_INSERT_ID()
+ 21      --mysql_utilities.identity := v_newVal; 
+ 22     -- assign the value from the sequence to emulate the identity column
+ 23     :new.INVENTORY_ID := v_newVal;
+ 24    END IF;
+ 25  END;
+ 26  
+ 27  /
+SP2-0640: Not connected
+SQL> 
+SQL> CREATE OR REPLACE TRIGGER order_det_ORDER_DET_ID_TRG BEFORE INSERT ON order_det
+  2  FOR EACH ROW
+  3  DECLARE 
+  4  v_newVal NUMBER(12) := 0;
+  5  v_incval NUMBER(12) := 0;
+  6  BEGIN
+  7    IF INSERTING AND :new.ORDER_DET_ID IS NULL THEN
+  8      SELECT  order_det_ORDER_DET_ID_SEQ.NEXTVAL INTO v_newVal FROM DUAL;
+  9      -- If this is the first time this table have been inserted into (sequence == 1)
+ 10      IF v_newVal = 1 THEN 
+ 11        --get the max indentity value from the table
+ 12        SELECT NVL(max(ORDER_DET_ID),0) INTO v_newVal FROM order_det;
+ 13        v_newVal := v_newVal + 1;
+ 14        --set the sequence to that value
+ 15        LOOP
+ 16             EXIT WHEN v_incval>=v_newVal;
+ 17             SELECT order_det_ORDER_DET_ID_SEQ.nextval INTO v_incval FROM dual;
+ 18        END LOOP;
+ 19      END IF;
+ 20      --used to emulate LAST_INSERT_ID()
+ 21      --mysql_utilities.identity := v_newVal; 
+ 22     -- assign the value from the sequence to emulate the identity column
+ 23     :new.ORDER_DET_ID := v_newVal;
+ 24    END IF;
+ 25  END;
+ 26  
+ 27  /
+SP2-0640: Not connected
+SQL> 
+SQL> CREATE OR REPLACE TRIGGER orders_ORDER_ID_TRG BEFORE INSERT ON orders
+  2  FOR EACH ROW
+  3  DECLARE 
+  4  v_newVal NUMBER(12) := 0;
+  5  v_incval NUMBER(12) := 0;
+  6  BEGIN
+  7    IF INSERTING AND :new.ORDER_ID IS NULL THEN
+  8      SELECT  orders_ORDER_ID_SEQ.NEXTVAL INTO v_newVal FROM DUAL;
+  9      -- If this is the first time this table have been inserted into (sequence == 1)
+ 10      IF v_newVal = 1 THEN 
+ 11        --get the max indentity value from the table
+ 12        SELECT NVL(max(ORDER_ID),0) INTO v_newVal FROM orders;
+ 13        v_newVal := v_newVal + 1;
+ 14        --set the sequence to that value
+ 15        LOOP
+ 16             EXIT WHEN v_incval>=v_newVal;
+ 17             SELECT orders_ORDER_ID_SEQ.nextval INTO v_incval FROM dual;
+ 18        END LOOP;
+ 19      END IF;
+ 20      --used to emulate LAST_INSERT_ID()
+ 21      --mysql_utilities.identity := v_newVal; 
+ 22     -- assign the value from the sequence to emulate the identity column
+ 23     :new.ORDER_ID := v_newVal;
+ 24    END IF;
+ 25  END;
+ 26  
+ 27  /
+SP2-0640: Not connected
+SQL> 
+SQL> CREATE OR REPLACE TRIGGER products_PRODUCT_ID_TRG BEFORE INSERT ON products
+  2  FOR EACH ROW
+  3  DECLARE 
+  4  v_newVal NUMBER(12) := 0;
+  5  v_incval NUMBER(12) := 0;
+  6  BEGIN
+  7    IF INSERTING AND :new.PRODUCT_ID IS NULL THEN
+  8      SELECT  products_PRODUCT_ID_SEQ.NEXTVAL INTO v_newVal FROM DUAL;
+  9      -- If this is the first time this table have been inserted into (sequence == 1)
+ 10      IF v_newVal = 1 THEN 
+ 11        --get the max indentity value from the table
+ 12        SELECT NVL(max(PRODUCT_ID),0) INTO v_newVal FROM products;
+ 13        v_newVal := v_newVal + 1;
+ 14        --set the sequence to that value
+ 15        LOOP
+ 16             EXIT WHEN v_incval>=v_newVal;
+ 17             SELECT products_PRODUCT_ID_SEQ.nextval INTO v_incval FROM dual;
+ 18        END LOOP;
+ 19      END IF;
+ 20      --used to emulate LAST_INSERT_ID()
+ 21      --mysql_utilities.identity := v_newVal; 
+ 22     -- assign the value from the sequence to emulate the identity column
+ 23     :new.PRODUCT_ID := v_newVal;
+ 24    END IF;
+ 25  END;
+ 26  
+ 27  /
+SP2-0640: Not connected
+SQL> 
+SQL> CREATE OR REPLACE TRIGGER suppliers_SUPPLIER_ID_TRG BEFORE INSERT ON suppliers
+  2  FOR EACH ROW
+  3  DECLARE 
+  4  v_newVal NUMBER(12) := 0;
+  5  v_incval NUMBER(12) := 0;
+  6  BEGIN
+  7    IF INSERTING AND :new.SUPPLIER_ID IS NULL THEN
+  8      SELECT  suppliers_SUPPLIER_ID_SEQ.NEXTVAL INTO v_newVal FROM DUAL;
+  9      -- If this is the first time this table have been inserted into (sequence == 1)
+ 10      IF v_newVal = 1 THEN 
+ 11        --get the max indentity value from the table
+ 12        SELECT NVL(max(SUPPLIER_ID),0) INTO v_newVal FROM suppliers;
+ 13        v_newVal := v_newVal + 1;
+ 14        --set the sequence to that value
+ 15        LOOP
+ 16             EXIT WHEN v_incval>=v_newVal;
+ 17             SELECT suppliers_SUPPLIER_ID_SEQ.nextval INTO v_incval FROM dual;
+ 18        END LOOP;
+ 19      END IF;
+ 20      --used to emulate LAST_INSERT_ID()
+ 21      --mysql_utilities.identity := v_newVal; 
+ 22     -- assign the value from the sequence to emulate the identity column
+ 23     :new.SUPPLIER_ID := v_newVal;
+ 24    END IF;
+ 25  END;
+ 26  
+ 27  /
+SP2-0640: Not connected
+SQL> 
+SQL> spool off;
+SQL> 
+SQL> COMMIT;
+SP2-0640: Not connected
+Connection created by CONNECT script command disconnected
