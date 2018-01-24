@@ -43,7 +43,7 @@ out.println("<html>\n" +
 "</tr>");  
    try {
            
-                 ResultSet rs1 = jdbc.result("Select ORDER_ID,PRICE,TIME,CUSTOMER_ID from orders where ORDER_ID = \""+orderid+"\"");  
+                 ResultSet rs1 = jdbc.result("Select ORDER_ID,PRICE,TIME,CUSTOMER_ID from orders where ORDER_ID = '"+orderid+"'");  
                  
                  while(rs1.next())
                  {
@@ -54,7 +54,7 @@ out.println("<html>\n" +
                      String time = String.valueOf(rs1.getTimestamp("TIME"));
                      int cid = rs1.getInt("CUSTOMER_ID");
                      
-                     String sq = "Select CUSTOMER_NAME,ADDRESS from customers where CUSTOMER_ID = \""+cid+"\"";
+                     String sq = "Select CUSTOMER_NAME,ADDRESS from customers where CUSTOMER_ID = '"+cid+"'";
                      ResultSet r = jdbc.result(sq);
                      while(r.next())
                      {
@@ -68,7 +68,7 @@ out.println("<html>\n" +
 "</form></body>\n" +
 "</html>");
          
-              String sql5= "Update ORDERS set STATUS = 'SHIPPED' where ORDER_ID = \""+oid+"\"";
+              String sql5= "Update ORDERS set STATUS = 'SHIPPED' where ORDER_ID = '"+oid+"'";
                 PreparedStatement ps2= jdbc.prepare(sql5);
                 ps2.executeUpdate();
          

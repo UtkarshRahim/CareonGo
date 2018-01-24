@@ -1,5 +1,3 @@
-
-
 import java.sql.*;
   
 class JDBCSingleton {  
@@ -33,7 +31,7 @@ class JDBCSingleton {
         	   
         	
         	 Connection conn=DriverManager.getConnection(  
-        	 "jdbc:oracle:thin:@localhost:1521:orcl","utkarsh","admin");  
+        	 "jdbc:oracle:thin:@localhost:1521:orcl","rahim","admin");  
              
               return conn;  
                 
@@ -60,4 +58,5 @@ class JDBCSingleton {
           PreparedStatement ps = connect().prepareStatement(sql1) ;
            
        return ps;
- }
+       }
+}

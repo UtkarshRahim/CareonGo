@@ -46,7 +46,7 @@ public class afterlogin extends HttpServlet {
 //                     Statement stmt2=conn.createStatement();
                     // session.setAttribute("cid",cid);
                      
-                     ResultSet rs= jdbc.result("Select ORDER_ID from orders where CUSTOMER_ID=\""+cid+"\"");
+                     ResultSet rs= jdbc.result("Select ORDER_ID from orders where CUSTOMER_ID='"+cid+"'");
                      while(rs.next())
                      {
                          

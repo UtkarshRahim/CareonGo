@@ -1,4 +1,3 @@
-import java.JDBCSingleton;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
@@ -48,21 +47,21 @@ public class tracking extends HttpServlet {
                  
   String time=null,add=null,status=null;
                 
-  ResultSet rs0 = jdbc.result("SELECT PRODUCT_ID from order_det where ORDER_ID =\""+cid+"\"");
+  ResultSet rs0 = jdbc.result("SELECT PRODUCT_ID from order_det where ORDER_ID ='"+cid+"'");
   while(rs0.next())
   {
       
       int pid = rs0.getInt("PRODUCT_ID");
       
-              ResultSet rs = jdbc.result("Select PRODUCT_NAME from products where PRODUCT_ID=\""+pid+"\"");
+              ResultSet rs = jdbc.result("Select PRODUCT_NAME from products where PRODUCT_ID='"+pid+"'");
               while(rs.next())
               {
                 String pname = rs.getString("PRODUCT_NAME")  ;
-                ResultSet rs1 = jdbc.result("Select TIME from orders where ORDER_ID =\""+cid+"\"");
+                ResultSet rs1 = jdbc.result("Select TIME from orders where ORDER_ID ='"+cid+"'");
                 if(rs1.next()){ time = String.valueOf(rs1.getTimestamp("TIME"));}
-                ResultSet rs2 = jdbc.result("Select ADDRESS from customers where CUSTOMER_ID = (Select CUSTOMER_ID from orders where ORDER_ID  =\""+cid+"\")");
+                ResultSet rs2 = jdbc.result("Select ADDRESS from customers where CUSTOMER_ID = (Select CUSTOMER_ID from orders where ORDER_ID  ='"+cid+"')");
                 if(rs2.next()){ add = rs2.getString("ADDRESS");}
-                ResultSet rs3 = jdbc.result("Select STATUS from orders where ORDER_ID =\""+cid+"\"");
+                ResultSet rs3 = jdbc.result("Select STATUS from orders where ORDER_ID ='"+cid+"'");
                 if(rs3.next()){ status = rs3.getString("STATUS");}
                 
                            

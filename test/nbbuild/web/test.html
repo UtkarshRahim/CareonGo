@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>Customer info</title>
+    <link href='http://fonts.googleapis.com/css?family=Graduate' rel='stylesheet' type='text/css'>    
+    <link href="style.css" rel='stylesheet' type='text/css'>
+    </head>
+   
+    <body>
+       
+        <h1>Welcome Customer, please enter the following details to continue</h1>
+        
+    <center><h2>Sign Up</h2></center>
+        
+    
+ <form method ="post" action ="custinsert">
+ Name:<br>
+ <input type="text" name="c_name" required >
+  <br>
+ Address:<br>
+  <input type="text" name="c_address" required >
+  <br>
+  Phone number:<br>
+  <input type="text" name="c_phone" required>
+  <br>
+  email:<br>
+  <input type="email" name="c_email" required >
+  <br>
+   Choose a username<br>
+  <input type="text" name="c_user" required ><br>
+   Choose password<br>
+  <input type="password" name="c_pass" required ><br>
+  <br><br>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
+  <script type="text/javascript">
+ var app = angular.module('MyApp', [])
+        app.controller('MyController', function ($scope) {
+            //This will hide the DIV by default.
+            $scope.IsVisible = false;
+            $scope.ShowHide = function () {
+                //If DIV is visible it will be hidden and vice versa.
+                $scope.IsVisible = $scope.Showsubmit;
+            }
+        });
+</script>
+    <div ng-app="MyApp" ng-controller="MyController">
+        <label for="chkbox">
+            <input type="checkbox" id="chkbox" ng-model="Showsubmit" ng-change="ShowHide()" />
+            Agree to terms and conditions ?
+        </label>
+        <hr />
+        <div ng-show="IsVisible">
+            
+            <input type="submit" id="Proceed" />
+        </div>
+    </div>
+  </form>    
+     <center><h2>Login</h2></center>
+    <form action = "login1">
+        Login username:<br>
+  <input type="text" name="uname" required >
+  <br>
+  Password:<br>
+  <input type="password" name="pass" required>
+  <br>
+  <br><br>
+  <input type="submit" value="Login">
+    </form>
+    </body>
+</html>

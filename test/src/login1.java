@@ -38,7 +38,7 @@ public class login1 extends HttpServlet {
                  
               String t = null;
               
-                     ResultSet rs = jdbc.result("Select CUSTOMER_ID,CUSTOMER_NAME from customers where Username = \""+user+"\" AND PASSWORD = \""+pass+"\""); 
+                     ResultSet rs = jdbc.result("Select CUSTOMER_ID,CUSTOMER_NAME from customers where Username = '"+user+"' AND PASSWORD = '"+pass+"'"); 
                      while(rs.next())
                      { cid = rs.getInt("CUSTOMER_ID");
                         cname= rs.getString("CUSTOMER_NAME");

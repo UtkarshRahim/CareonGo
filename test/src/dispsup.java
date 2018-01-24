@@ -28,13 +28,13 @@ public class dispsup extends HttpServlet {
 "<tr>\n" +
 "  <th>Name\n" +
 "  <th>Quantity\n" +
-"  <th>EXP\n" + 
+"  <th>Selling Price\n" + 
 "</tr>" );
  
  
   try {
              
-           
+           Date date = null;
              ResultSet rs = jdbc.result("Select PRODUCT_NAME from products");
           
                  while (rs.next()) {
@@ -42,13 +42,22 @@ public class dispsup extends HttpServlet {
                  String nm = rs.getString("PRODUCT_NAME");
                  
                  int s = 0; String a =null;
-                 ResultSet rs1= jdbc.result("Select sum(QUANTITY) from inventory where PRODUCT_ID = (SELECT PRODUCT_ID from products where PRODUCT_NAME =\""+nm+"\")");
-                if(rs1.next()){s=rs1.getInt("sum(Quantity)");}
-                ResultSet rs2 = jdbc.result("Select EXP_DATE from inventory where PRODUCT_ID = (SELECT PRODUCT_ID from products where PRODUCT_NAME =\""+nm+"\")");
-                if(rs2.next()){a=rs2.getString("EXP_DATE");}
-              
+                 ResultSet r = jdbc.result("SELECT PRODUCT_ID from products where PRODUCT_NAME ='"+nm+"'");
+                 while(r.next())
+                 {  
+                 int pd = r.getInt("PRODUCT_ID");
+                 ResultSet rs1= jdbc.result("Select sum(QUANTITY) from inventory where PRODUCT_ID ="+pd+"");
+               if(rs1.next()){s=rs1.getInt("sum(Quantity)");}
+                ResultSet rs2 = jdbc.result("Select UNIT_SELL_PRICE from inventory where PRODUCT_ID ="+pd+"");
+                if(rs2.next()){a=rs2.getString("UNIT_SELL_PRICE");
+                
+//               date = Date.valueOf(a);
+//                out.println(date);
+//                
+                }
+                 
              out.println("</td><td>" + nm + "</td><td>" + s +"</td><td>" + a+ "</td></tr>"); 
-             }
+             }}
       
              jdbc.connect().close();
             }

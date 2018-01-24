@@ -1,5 +1,4 @@
 
-import java.JDBCSingleton;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -8,8 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-//import java.sql.Timestamp;
-//import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.servlet.ServletException;
@@ -38,7 +35,7 @@ public class NewServlet2 extends HttpServlet {
            String n=null;
        
          HttpSession session = request.getSession();
-String a = (String) session.getAttribute("a1");
+int a = (Integer) session.getAttribute("a1");
 int cid = (Integer) session.getAttribute("cid");
          
           out.println("<html>\n" +
@@ -60,13 +57,13 @@ int cid = (Integer) session.getAttribute("cid");
               Date date = new Date();
               Calendar calendar = Calendar.getInstance();
 
-             ResultSet rs3 = jdbc.result("Select PRODUCT_ID,QUANTITY from ORDER_DET where ORDER_ID = \""+a+"\"");
+             ResultSet rs3 = jdbc.result("Select PRODUCT_ID,QUANTITY from ORDER_DET where ORDER_ID = '"+a+"'");
            
               while(rs3.next()){
            int pid=rs3.getInt("PRODUCT_ID") ;
            int quantity = rs3.getInt("QUANTITY");
            String sql5=null;
-           ResultSet rs4 = jdbc.result("Select BATCH_NUMBER,QUANTITY from inventory where PRODUCT_ID = \""+pid+"\"");
+           ResultSet rs4 = jdbc.result("Select BATCH_NUMBER,QUANTITY from inventory where PRODUCT_ID = '"+pid+"'");
            while(rs4.next())
            {
                String b = rs4.getString("BATCH_NUMBER");
@@ -76,10 +73,10 @@ int cid = (Integer) session.getAttribute("cid");
                {
                     quantity=quantity-supply;
                  supply=0;
-                 sql5= "Update inventory set QUANTITY = 0 where BATCH_NUMBER = \""+b+"\"";
+                 sql5= "Update inventory set QUANTITY = 0 where BATCH_NUMBER = '"+b+"'";
                 PreparedStatement ps2= jdbc.prepare(sql5);
                 ps2.executeUpdate();
-                String sql7= "Update order_det set Batch.No = \""+b+"\" where PRODUCT_ID = (Select PRODUCT_ID from inventory where BATCH_NUMBER = \""+b+"\" AND QUANTITY =0)";
+                String sql7= "Update order_det set Batch.No = '"+b+"' where PRODUCT_ID = (Select PRODUCT_ID from inventory where BATCH_NUMBER = '"+b+"' AND QUANTITY =0)";
                 PreparedStatement ps5= jdbc.prepare(sql7);
                 ps5.executeUpdate();
                }
@@ -88,10 +85,10 @@ int cid = (Integer) session.getAttribute("cid");
                if(supply>quantity)
                {
                    int rem= supply-quantity;
-               sql5 = "Update inventory set QUANTITY = '"+rem+"' where BATCH_NUMBER = \""+b+"\"";
+               sql5 = "Update inventory set QUANTITY = '"+rem+"' where BATCH_NUMBER = '"+b+"'";
                 PreparedStatement ps2= jdbc.prepare(sql5);
                 ps2.executeUpdate();
-                String sql8="Update order_det set Batch_No = \""+b+"\" where (PRODUCT_ID = \""+pid+"\" AND QUANTITY = \""+quantity+"\") AND ORDER_ID=\""+a+"\"";
+                String sql8="Update order_det set Batch_No = '"+b+"' where (PRODUCT_ID = '"+pid+"' AND QUANTITY = '"+quantity+"') AND ORDER_ID='"+a+"'";
                 PreparedStatement ps4= jdbc.prepare(sql8);
                 ps4.executeUpdate();
                 break;
@@ -103,12 +100,12 @@ int cid = (Integer) session.getAttribute("cid");
                    
             }
            
-             String sql6 = "Update orders set STATUS = \"Ordered\" where ORDER_ID = \""+a+"\"";
+             String sql6 = "Update orders set STATUS = 'Ordered' where ORDER_ID = '"+a+"'";
                 PreparedStatement ps3= jdbc.prepare(sql6);
                 ps3.executeUpdate();
            
                 
-         String sq = "Select CUSTOMER_NAME,ADDRESS from customers where CUSTOMER_ID= \""+cid+"\"";
+         String sq = "Select CUSTOMER_NAME,ADDRESS from customers where CUSTOMER_ID= '"+cid+"'";
          ResultSet r = jdbc.result(sq);
          while(r.next())
          {

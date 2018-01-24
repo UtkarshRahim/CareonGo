@@ -39,13 +39,14 @@ public class alert extends HttpServlet {
             
             
   
-                    ResultSet rs2 =jdbc.result("Select ORDER_ID from orders where STATUS = \"Ordered\" ");   
+                    ResultSet rs2 =jdbc.result("Select ORDER_ID from orders where STATUS ='Ordered' ");   
                     if(rs2.next())
                     {
-                 ResultSet rs1 = jdbc.result("Select ORDER_ID from orders where STATUS = \"Ordered\" ");   
+                 
      out.println("<br><label style =\"font-size: 18px;\">Order ID</label>" +
 "        <select class=\"form-control\" style=\"width:250px;\" name=\"id\" id=\"dropdown\" >\n\" +\n");
-                    while (rs1.next()) {
+     ResultSet rs1 = jdbc.result("Select ORDER_ID from orders where STATUS ='Ordered' ");                 
+     while (rs1.next()) {
                    id=rs1.getInt("ORDER_ID"); 
              out.println("<option value =\""+id+"\">Order id -" +id +"</option>"); 
                   }

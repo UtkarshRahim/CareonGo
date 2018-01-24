@@ -1,5 +1,4 @@
 
-import java.JDBCSingleton;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -8,10 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
-/**
- *
- * @author wms
- */
+
+
+
+@SuppressWarnings("serial")
 @WebServlet(urlPatterns = {"/supplierdisplay"})
 public class supplierdisplay extends HttpServlet {
  protected void doGet (HttpServletRequest request, HttpServletResponse response)
@@ -42,7 +41,7 @@ public class supplierdisplay extends HttpServlet {
                  ResultSet rs;
               
                  
-                       rs = jdbc.result("select * from suppliers group by SUPPLIER_ID asc" );
+                       rs = jdbc.result("Select * from SUPPLIERS" );
           while(rs.next())
             {
                  int id = rs.getInt("SUPPLIER_ID");
@@ -53,8 +52,6 @@ public class supplierdisplay extends HttpServlet {
             out.println("<tr><td>" + id + "</td><td>" + sn + "</td><td>" + se +"</td><td>" + sp+"</td><td>" + sad+ "</td></tr>"); 
             }
              
-          
-          jdbc.connect().close();
         
         
         

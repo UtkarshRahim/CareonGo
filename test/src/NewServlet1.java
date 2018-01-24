@@ -18,7 +18,7 @@ import javax.servlet.http.*;
 public class NewServlet1 extends HttpServlet {
 
   
-     protected void doPost(HttpServletRequest request, HttpServletResponse response)
+     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
    		JDBCSingleton jdbc = JDBCSingleton.getInstance();
 
@@ -28,8 +28,11 @@ public class NewServlet1 extends HttpServlet {
            String[] vals = request.getParameterValues("array[]");
            int size=vals.length; 
             float sum=0;
+         
+         
+
+
            
-     String a=null;
            out.println("<html>\n" +
 "	<head>\n" +
 "		<title>Careongo Pharmacy </title>\n" +
@@ -40,27 +43,31 @@ public class NewServlet1 extends HttpServlet {
 "		<![endif]>\n" +
 "	</head>\n" +
 "<body><h1>Welcome "+"</h1>"  +
-"<form action=\"NewServlet2\">\n" +
+"<form method = \"get\" action=\"NewServlet2\">\n" +
 "  SUM : <br>");
-           try {
-            /* TODO output your page here. You may use following sample code. */
-            
-                 ResultSet rs,rs1,rs2;
-                 String nm = null;
+           
+
+          
+        	
       
-               int i=0;
-              String t = null;
-              Date date = new Date();
-              Calendar calendar = Calendar.getInstance();
-calendar.setTime(date);
-calendar.add(Calendar.SECOND, 1);
-Date strDate = calendar.getTime();
-               SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+           try {
+        	   ResultSet rs,rs1,rs2;
+               String nm = null;
+               	int a=0;
+             int i=0;
+            String t = null;
+            Date date = new Date();
+            
+            Calendar calendar = Calendar.getInstance();
+    calendar.setTime(date);
+    calendar.add(Calendar.SECOND, 1);
+    Date strDate = calendar.getTime();
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
     String strDate1= formatter.format(strDate);  
-   
+
               Timestamp timestamp = new Timestamp(new Date().getTime());
-                
-             
+          
+            
                   String p = null;
                   
                      float p1 = 0;
@@ -72,11 +79,11 @@ Date strDate = calendar.getTime();
                     if("" != vals[i])
                    {
                        p2=Float.valueOf(vals[i]);
-                rs = jdbc.result("Select PRODUCT_NAME from products where PRODUCT_ID = \""+(i+1)+"\"");
+                rs = jdbc.result("Select PRODUCT_NAME from products where PRODUCT_ID = '"+(i+1)+"'");
                 if(rs.next()){nm=rs.getString("PRODUCT_NAME");
                    }
                  
-                rs1=jdbc.result("Select distinct UNIT_SELL_PRICE from inventory where PRODUCT_ID =\""+(i+1)+"\"");
+                rs1=jdbc.result("Select distinct UNIT_SELL_PRICE from inventory where PRODUCT_ID ='"+(i+1)+"'");
                 if(rs1.next())
                 {p= rs1.getString("UNIT_SELL_PRICE");
                 p1= Float.valueOf(p);
@@ -90,58 +97,60 @@ Date strDate = calendar.getTime();
               i+=1;
                 
                 }
-
-           
-           
-
-             String sql = "insert into ORDERS (PRICE,TIME,STATUS,CUSTOMER_ID) values (?,?,?,?)";
-            PreparedStatement pst = conn.prepareStatement(sql);
-             pst.setFloat(1,sum);
-             pst.setTimestamp(2, timestamp);
-             pst.setString(3,"PLACED");
-             pst.setInt(4,cid);
-             pst.executeUpdate();
-             
-             
-             String s1= String.valueOf(strDate1);
-            
-             rs2=stmt.executeQuery("Select ORDER_ID from ORDERS where TIME= \""+s1+"\"" );
-             if(rs2.next()){a=rs2.getString("ORDER_ID");}
-              i=0;
-             
-              while(i<size)
+                String id = timestamp+" Placed"+cid ;
+                
+         out.println(id);
+          String sql = "insert into ORDERS (PRICE,TIME,STATUS,CUSTOMER_ID,COLUMN_ID) values (?,?,?,?,?)";
+         PreparedStatement pst = jdbc.prepare(sql);
+          pst.setFloat(1,sum);
+          pst.setTimestamp(2, timestamp);
+          pst.setString(3,"PLACED");
+          pst.setInt(4,cid);
+          pst.setString(5, id);
+          pst.executeUpdate();
+          
+          out.print(vals);
+          
+       
+          
+          out.println(strDate1);
+         
+          rs2=jdbc.result("Select ORDER_ID from ORDERS where COLUMN_ID= '"+id+"'" );
+          if(rs2.next()){a=rs2.getInt("ORDER_ID");}
+           i=0;
+   out.println(a) ;      
+           while(i<size)
+             {
+                 
+                 if("" != vals[i])
                 {
-                    
-                    if("" != vals[i])
-                   {
-             
-             String sql1= "Insert into ORDER_DET(ORDER_ID,PRODUCT_ID,QUANTITY) values (?,?,?)" ;
-             PreparedStatement ps1 = conn.prepareStatement(sql1);
-             ps1.setString(1,a);
-             ps1.setInt(2,(i+1));
-             ps1.setString(3,vals[i]);
-             ps1.executeUpdate();
-                   }
-                  i+=1;
+          
+          String sql1= "Insert into ORDER_DET(ORDER_ID,PRODUCT_ID,QUANTITY) values (?,?,?)" ;
+          PreparedStatement ps1 = jdbc.prepare(sql1);
+          ps1.setInt(1,a);
+          ps1.setInt(2,(i+2));
+          ps1.setString(3,vals[i]);
+          ps1.executeUpdate();
                 }
-              
- 
-             
+               i+=1;
+             }
+           
+           session.setAttribute("a1",a);
+           session.setAttribute("cid",cid);
+          
              
            }
            catch(ClassNotFoundException | SQLException e){
   out.println("SQLException caught: " + e.getMessage());
   }
-out.println(sum);
-out.println(" <br><br>\n" +
-"  <input type=\"submit\" value=\"PAY\">\n" +
-"</form>    \n" +
-"</body>\n" +
-"</html>");
-
- 
- session.setAttribute("a1",a);
- session.setAttribute("cid",cid);
-
-     }
+           
+           out.println(sum);
+           out.println(" <br><br>\n" +
+          		  "  <input type=\"submit\" value=\"PAY\">\n" +
+          		  "</form>    \n" +
+          		  "</body>\n" +
+          		  "</html>");  
+           
+   
+        }
 }

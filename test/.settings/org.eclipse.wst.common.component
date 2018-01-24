@@ -6,6 +6,9 @@
         <dependent-module archiveName="mysql-connector-java-5.1.45-bin.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/mysql-connector-java-5.1.45-bin/mysql-connector-java-5.1.45-bin">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="ojdbc8.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/wms/Downloads/ojdbc8.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="test"/>
         <property name="java-output-path" value="/test/build/classes"/>
     </wb-module>

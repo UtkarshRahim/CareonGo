@@ -12,6 +12,7 @@ import javax.servlet.http.*;
 
 
 
+@SuppressWarnings("serial")
 @WebServlet(urlPatterns={"/custinsert"})
 public class custinsert extends HttpServlet {
 
@@ -32,13 +33,11 @@ public class custinsert extends HttpServlet {
                 
                 try {
             /* TODO output your page here. You may use following sample code. */
-             Class.forName("com.mysql.jdbc.Driver");
-                 ResultSet rs;
+            
               
-                  Connection conn =
-            DriverManager.getConnection("jdbc:mysql://localhost:3307/pro","root","123456");
-                     Statement stmt=conn.createStatement();
-              Statement stmt1=conn.createStatement();
+               
+                     
+              ResultSet rs;
             String sql = "insert into customers (CUSTOMER_NAME,EMAIL_ADDRESS,PHONE_NUMBER,ADDRESS,Username,PASSWORD) values (?,?,?,?,?,?)";
             PreparedStatement pst = jdbc.prepare(sql);
              pst.setString(1,c_name);
@@ -53,7 +52,7 @@ public class custinsert extends HttpServlet {
               pst.executeUpdate();
               
             
-               String sql1 = "Select CUSTOMER_ID from customers where Username = \""+c_user+"\" AND PASSWORD = \""+c_pass+"\"";
+               String sql1 = "Select CUSTOMER_ID from customers where Username = '"+c_user+"' AND PASSWORD = '"+c_pass+"'";
                rs = jdbc.result(sql1);
                if(rs.next())
                {

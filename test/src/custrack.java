@@ -49,7 +49,7 @@ out.println("<html>\n" +
 "</tr>");  
    try {
            
-                 ResultSet rs1 = jdbc.result("Select STATUS from orders where CUSTOMER_ID = \""+cid+"\"");  
+                 ResultSet rs1 = jdbc.result("Select STATUS from orders where CUSTOMER_ID = '"+cid+"'");  
                  
                  while(rs1.next())
                  {
@@ -64,7 +64,7 @@ out.println("<html>\n" +
 "</form></body>\n" +
 "</html>");
          
-              String sql5= "Update ORDERS set STATUS = 'SHIPPED' where ORDER_ID = \""+oid+"\"";
+              String sql5= "Update ORDERS set STATUS = 'SHIPPED' where ORDER_ID = '"+oid+"'";
                 PreparedStatement ps2= jdbc.prepare(sql5);
                 ps2.executeUpdate();
          
